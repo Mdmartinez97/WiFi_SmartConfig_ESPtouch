@@ -23,7 +23,7 @@ void IRAM_ATTR BorrarCredenciales(){
 
 //*******************************************************************************SETUP
 void setup() {
-  pinMode(2, OUTPUT);
+  pinMode(2, OUTPUT); // EJEMPLO
   pinMode(WFready, OUTPUT);
   pinMode(RstWF, INPUT_PULLUP);
 
