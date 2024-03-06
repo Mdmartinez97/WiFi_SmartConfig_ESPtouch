@@ -38,18 +38,25 @@ void setup() {
 
 void loop() {
   
-  // Reiniciar sistema si se reestablecen las credenciales WiFi
-  if(flagWF==1){
-    flagWF = 0;
-    Serial.println("REINICIO DE SISTEMA");
-    ESP.restart();
-  }
-  
-
   // --------CÓDIGO LOOP EJEMPLO---------
   Serial.println("---ENTRAMOS EN EL LOOP---");
   digitalWrite(2, HIGH);
   delay(800);
   digitalWrite(2, LOW);
   delay(800);
+  // -----------------------------------
+
+  // Reiniciar sistema si se reestablecen las credenciales WiFi
+  if(flagWF==1){
+    flagWF = 0;
+    Serial.println("REINICIO DE SISTEMA");
+    ESP.restart();
+  }
+
+  // En caso de perder conexión WiFi
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("Cónexión WiFi perdida!");
+    initWiFi();
+  }
+
 }
