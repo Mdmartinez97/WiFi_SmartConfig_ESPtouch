@@ -1,7 +1,7 @@
 #include "EEPROM.h"
 
 // LED de estado Wi-Fi
-const uint8_t WFready = 22;
+const uint8_t WFready = 23;
 
 //Set length of char string
 #define LENGTH(x) (strlen(x) + 1)
@@ -47,7 +47,7 @@ void initWiFi() {
   }
   //Start WiFi Connection
   WiFi.begin(ssid.c_str(), pss.c_str());
-  delay(3000);
+  delay(5000); //Tiempo de conexión
   
   //If WiFi is not connected
   if (WiFi.status() != WL_CONNECTED)
@@ -68,12 +68,12 @@ void initWiFi() {
     Serial.println("SmartConfig received");
     
     //Wait for WiFi to connect to AP
-    Serial.print("Waiting for WiFi.");
+    Serial.println("Waiting for WiFi.");
     while (WiFi.status() != WL_CONNECTED) {
       delay(500);
       Serial.print(".");      
     }
-    
+    digitalWrite(WFready, HIGH);
     Serial.println("WiFi Connected");
     Serial.print("IP Address: ");
     Serial.println(WiFi.localIP());
@@ -98,8 +98,22 @@ void initWiFi() {
     //ESP.restart();//For correct connection proccess
   }
   
-  else
-  {Serial.println("WiFi Connected");
+  else {
+  Serial.println("WiFi Connected");
   digitalWrite(WFready, HIGH);
   }
+}
+
+void Reconnect() {
+  digitalWrite(WFready, LOW);
+  Serial.print("Reconnecting WiFi..");
+
+  while (WiFi.status() != WL_CONNECTED) {
+      
+      WiFi.begin(ssid.c_str(), pss.c_str());
+      delay(3000);
+      Serial.print(".");      
+    }
+  Serial.println("WiFi Reconnected");
+  digitalWrite(WFready, HIGH);
 }

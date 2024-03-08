@@ -2,7 +2,7 @@
 #include "WiFi.h"
 
 //Local
-#include "initWiFi.h"
+#include "SmartConfigWiFi.h"
 
 // Botón Reset WiFi
 const uint8_t RstWF = 4; 
@@ -56,7 +56,7 @@ void loop() {
   // En caso de perder conexión WiFi
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("Cónexión WiFi perdida!");
-    initWiFi();
+    Reconnect();
   }
 
 }
