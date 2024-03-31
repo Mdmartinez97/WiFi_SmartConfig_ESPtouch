@@ -1,7 +1,7 @@
 #include "EEPROM.h"
 
 // LED de estado Wi-Fi
-const uint8_t WFready = 23;
+const uint8_t WFready = 2;
 
 //Set length of char string
 #define LENGTH(x) (strlen(x) + 1)
